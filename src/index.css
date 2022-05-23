@@ -1,0 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Merienda:wght@400;700&family=Raleway:wght@100;300;500&family=Roboto:wght@100;300;400;500;700&display=swap");
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+body {
+  background-color: #f0f3f9;
+}
