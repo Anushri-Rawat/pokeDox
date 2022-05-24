@@ -11,7 +11,7 @@ function getPokemonInfo(arr) {
 export const getPokemonList = (page) => async (dispatch) => {
   try {
     dispatch({ type: "POKEMON_LIST_LOADING" });
-    const perPage = 100;
+    const perPage = 20;
     const offset = page * perPage - perPage;
 
     const res = await axios.get(

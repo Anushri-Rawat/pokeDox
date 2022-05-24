@@ -33,8 +33,11 @@ export const Header = () => {
             {lightTheme ? (
               <i className="bi bi-moon-fill" style={{ color: "white" }}></i>
             ) : (
-              <i className="bi bi-sun-fill" style={{ color: "black" }}></i>
-            )}{" "}
+              <i
+                className="bi bi-brightness-high-fill"
+                style={{ color: "white" }}
+              ></i>
+            )}
             {lightTheme ? "Dark" : "Light"}
           </div>
           {/* <div className="favourites-container">

@@ -12,7 +12,7 @@ const SearchBar = (props) => {
       if (timer) clearTimeout(timer);
       timer = setTimeout(() => {
         func(...args);
-      }, 500);
+      }, 800);
     };
   };
 

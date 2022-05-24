@@ -14,15 +14,6 @@ const PokemonList = (props) => {
     dispatch(getPokemonList(PokemonList.perPage || 1));
   }, []);
 
-  document.querySelector(".NextBtn") &&
-    document.querySelector(".NextBtn").addEventListener("click", () => {
-      dispatch(getPokemonList(PokemonList.perPage + 1));
-    });
-  document.querySelector(".Prevbtn") &&
-    document.querySelector(".Prevbtn").addEventListener("click", () => {
-      dispatch(getPokemonList(PokemonList.perPage - 1));
-    });
-
   const ShowData = () => {
     if (PokemonList.loading) {
       return <p>Loading...</p>;
@@ -36,12 +27,26 @@ const PokemonList = (props) => {
               <PokemonCard pokemon={item} />
             </Link>
           ))}
-          {PokemonList.data.length > 20 && (
+          {PokemonList.data.length > 0 && (
             <div className="btnDiv">
               {PokemonList.perPage != 1 && (
-                <div className="btn Prevbtn">Prev</div>
+                <div
+                  className="btn Prevbtn"
+                  onClick={() => {
+                    dispatch(getPokemonList(PokemonList.perPage - 1));
+                  }}
+                >
+                  Prev
+                </div>
               )}
-              <div className="btn NextBtn">Next</div>
+              <div
+                className="btn NextBtn"
+                onClick={() => {
+                  dispatch(getPokemonList(PokemonList.perPage + 1));
+                }}
+              >
+                Next
+              </div>
             </div>
           )}
         </div>

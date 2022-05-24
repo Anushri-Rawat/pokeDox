@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
+import _ from "lodash";
 
 export const PokemonStats = (props) => {
   return (
     <Fragment>
-      {props.PokemonData.stats.map((stat, i) => (
+      {props.PokemonData.map((stat, i) => (
         <tr key={i}>
           <td className="row-heading">{stat.stat.name}</td>
           <td className="row-value">
@@ -12,10 +13,19 @@ export const PokemonStats = (props) => {
                 className="progress-bar"
                 style={{
                   backgroundColor: props.bg_color,
-                  width: (stat.base_stat / props.maxStat) * 100 + "%",
+                  width:
+                    (!_.isEmpty(props.pokiVal.stats)
+                      ? props.pokiVal.stats[i] / props.pokiVal.maximumStat
+                      : stat.base_stat / props.maxStat) *
+                      100 +
+                    "%",
                 }}
               >
-                <span className="progress-value">{stat.base_stat}</span>
+                <span className="progress-value">
+                  {!_.isEmpty(props.pokiVal.stats)
+                    ? props.pokiVal.stats[i]
+                    : stat.base_stat}
+                </span>
               </div>
             </div>
           </td>

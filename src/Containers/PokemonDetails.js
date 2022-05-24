@@ -4,7 +4,7 @@ import { getPokemonDetails } from "../Actions/PokemonAction";
 import { useParams } from "react-router-dom";
 import logo from "../Assests/R.png";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 import PokemonUtil from "../PokemonUtil/PokemonUtil";
@@ -14,84 +14,20 @@ import PokemonMoves from "./PokemonMoves";
 
 export const PokemonDetails = (props) => {
   let maxStat = 0;
+
   const params = useParams();
   const dispatch = useDispatch();
   const PokemonData = useSelector((state) => state.PokemonMultiple);
 
+  const [FinalPokemonStatsData, setFinalPokemonStatsData] = useState({
+    stats: [],
+    maximumStat: 1,
+    selectedStat: "base",
+  });
+
   useEffect(() => {
     dispatch(getPokemonDetails(params.pokemon));
   }, [params.pokemon]);
-
-  document.querySelectorAll(".stats-type button").forEach((btn) =>
-    btn.addEventListener("click", (e) => {
-      if (e.target.textContent == "Max") {
-        e.target.classList.add("active");
-        e.target.previousElementSibling.classList.remove("active");
-        e.target.nextElementSibling.classList.remove("active");
-      } else if (e.target.textContent == "Min") {
-        e.target.classList.add("active");
-        e.target.previousElementSibling.classList.remove("active");
-        e.target.previousElementSibling.previousElementSibling.classList.remove(
-          "active"
-        );
-      } else {
-        e.target.classList.add("active");
-        e.target.nextElementSibling.classList.remove("active");
-        e.target.nextElementSibling.nextElementSibling.classList.remove(
-          "active"
-        );
-      }
-    })
-  );
-
-  // const statCalculation = (stats, maxStat) => {
-  //   let arr = [];
-  //   for (let i = 0; i < 6; i++) {
-  //     let calculatedStat = Math.floor(
-  //       stats[i] && (stats[i].base_stat / maxStat) * 100
-  //     );
-  //     if (calculatedStat > 10) {
-  //       arr[i] = calculatedStat;
-  //     } else {
-  //       calculatedStat = 10;
-  //       arr[i] = calculatedStat;
-  //     }
-  //   }
-  //   return arr;
-  // };
-  // function calculateMaxStats(pokemonStats) {
-  //   let arr = [];
-  //   if (PokemonData.data.id === 292) {
-  //     arr[0] = 1;
-  //   } else {
-  //     arr[0] = Math.floor(
-  //       ((2 * pokemonStats[0] + 31 + 63) * 100) / 100 + 100 + 10
-  //     );
-  //   }
-  //   for (let i = 1; i < 6; i++) {
-  //     arr[i] = Math.floor(
-  //       Math.floor(((2 * pokemonStats[i] + 31 + 63) * 100) / 100 + 5) * 1.1
-  //     );
-  //   }
-  //   maxStat = Math.max(...arr);
-  //   return arr;
-  // }
-
-  // function calculateMinStats(pokemonStats) {
-  //   let arr = [];
-  //   if (PokemonData.data.id === 292) {
-  //     arr[0] = 1;
-  //   } else {
-  //     arr[0] = Math.floor((2 * pokemonStats[0] * 100) / 100 + 100 + 10);
-  //   }
-  //   for (let i = 1; i < 6; i++) {
-  //     arr[i] = Math.floor(
-  //       Math.floor((2 * pokemonStats[i] * 100) / 100 + 5) * 0.9
-  //     );
-  //   }
-  //   maxStat = Math.max(...arr);
-  //   return arr;
-  // }
 
   const ShowData = () => {
     if (PokemonData.loading) {
@@ -103,6 +39,7 @@ export const PokemonDetails = (props) => {
       PokemonData.data.stats.map((stat) => {
         maxStat = Math.max(maxStat, stat.base_stat);
       });
+
       return (
         <div className="detailsPage">
           <div
@@ -202,21 +139,94 @@ export const PokemonDetails = (props) => {
                 <div className="stats-type">
                   <button
                     className="active"
-                    style={{ backgroundColor: bg_color }}
+                    style={{
+                      backgroundColor:
+                        FinalPokemonStatsData.selectedStat == "base"
+                          ? bg_color
+                          : "white",
+                    }}
+                    onClick={(e) => {
+                      e.target.classList.add("active");
+                      e.target.nextElementSibling.classList.remove("active");
+                      e.target.nextElementSibling.nextElementSibling.classList.remove(
+                        "active"
+                      );
+                      setFinalPokemonStatsData(
+                        PokemonUtil.showStats(
+                          "base",
+                          PokemonData.data.stats,
+                          PokemonData.data.id,
+                          maxStat
+                        )
+                      );
+                    }}
                   >
                     Base
                   </button>
-                  <button>Max</button>
-                  <button>Min</button>
+                  <button
+                    style={{
+                      backgroundColor:
+                        FinalPokemonStatsData.selectedStat == "max"
+                          ? bg_color
+                          : "white",
+                    }}
+                    onClick={(e) => {
+                      e.target.classList.add("active");
+                      e.target.previousElementSibling.classList.remove(
+                        "active"
+                      );
+                      e.target.nextElementSibling.classList.remove("active");
+                      setFinalPokemonStatsData(
+                        PokemonUtil.showStats(
+                          "max",
+                          PokemonData.data.stats,
+                          PokemonData.data.id,
+                          maxStat
+                        )
+                      );
+                    }}
+                  >
+                    Max
+                  </button>
+                  <button
+                    style={{
+                      backgroundColor:
+                        FinalPokemonStatsData.selectedStat == "min"
+                          ? bg_color
+                          : "white",
+                    }}
+                    onClick={(e) => {
+                      e.target.classList.add("active");
+                      e.target.previousElementSibling.classList.remove(
+                        "active"
+                      );
+                      e.target.previousElementSibling.previousElementSibling.classList.remove(
+                        "active"
+                      );
+                      setFinalPokemonStatsData(
+                        PokemonUtil.showStats(
+                          "min",
+                          PokemonData.data.stats,
+                          PokemonData.data.id,
+                          maxStat
+                        )
+                      );
+                    }}
+                  >
+                    Min
+                  </button>
                 </div>
                 <table>
                   <tbody>
-                    <PokemonStats
-                      bg_color={bg_color}
-                      PokemonData={PokemonData.data}
-                      key={PokemonData.data.id}
-                      maxStat={maxStat}
-                    />
+                    {
+                      <PokemonStats
+                        bg_color={bg_color}
+                        PokemonData={PokemonData.data.stats}
+                        pokiVal={FinalPokemonStatsData}
+                        key={PokemonData.data.id}
+                        maxStat={maxStat}
+                      />
+                    }
                   </tbody>
                 </table>
               </div>
@@ -233,5 +243,6 @@ export const PokemonDetails = (props) => {
 
     if (PokemonData.errorMsg !== "") return <p>{PokemonData.errorMsg}</p>;
   };
+
   return ShowData();
 };

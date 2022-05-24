@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import Accordion from "react-bootstrap/Accordion";
 
 export const PokemonMoves = (props) => {
+  console.log(props.moves);
   return (
     <div className="moves">
       <h2 style={{ paddingLeft: "15px" }}>MOVES:</h2>
