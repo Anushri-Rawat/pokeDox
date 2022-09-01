@@ -4,9 +4,9 @@ import { getPokemonList } from "../Actions/PokemonAction";
 import _ from "lodash";
 import PokemonCard from "./PokemonCard";
 import { Link } from "react-router-dom";
-import { Header } from "../Components/Header";
+import Loader from "../Components/Loader";
 
-const PokemonList = (props) => {
+const PokemonList = () => {
   const dispatch = useDispatch();
   const PokemonList = useSelector((state) => state.PokemonList);
 
@@ -16,7 +16,7 @@ const PokemonList = (props) => {
 
   const ShowData = () => {
     if (PokemonList.loading) {
-      return <p>Loading...</p>;
+      return <Loader />;
     }
 
     if (!_.isEmpty(PokemonList.data)) {
@@ -27,7 +27,7 @@ const PokemonList = (props) => {
               <PokemonCard pokemon={item} />
             </Link>
           ))}
-          {PokemonList.data.length > 0 && (
+          {PokemonList.data.length > 0 && !PokemonList.serachResults && (
             <div className="btnDiv">
               {PokemonList.perPage != 1 && (
                 <div

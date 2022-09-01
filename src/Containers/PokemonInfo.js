@@ -1,6 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux/es/exports";
 
-const PokemonInfo = (props) => {
+const PokemonInfo = ({ bg_color, PokiInfo }) => {
+  let baseExp = 10;
+
+  const PokemonList = useSelector((state) => state.PokemonList);
+  PokemonList.data.map((pokemon) => {
+    if (pokemon.name == PokiInfo.name) baseExp = pokemon.base_experience;
+  });
   return (
     <div className="row" style={{ marginBottom: "1.5rem" }}>
       <div className="trainingDiv">
@@ -8,24 +15,28 @@ const PokemonInfo = (props) => {
         <table>
           <tbody>
             <tr>
-              <td className="row-heading pokiInfoHeading">EV Yield</td>
-              <td className="row-value" style={{ color: props.bg_color }}></td>
+              <td className="row-heading pokiInfoHeading">Order</td>
+              <td className="row-value" style={{ color: bg_color }}>
+                {PokiInfo.order}
+              </td>
             </tr>
             <tr>
               <td className="row-heading pokiInfoHeading">Catch rate</td>
-              <td className="row-value" style={{ color: props.bg_color }}>
-                {props.PokiInfo.capture_rate}
+              <td className="row-value" style={{ color: bg_color }}>
+                {PokiInfo.capture_rate}
               </td>
             </tr>
             <tr>
               <td className="row-heading pokiInfoHeading">Base Friendship</td>
-              <td className="row-value" style={{ color: props.bg_color }}>
-                {props.PokiInfo.base_happiness}
+              <td className="row-value" style={{ color: bg_color }}>
+                {PokiInfo.base_happiness}
               </td>
             </tr>
             <tr>
               <td className="row-heading pokiInfoHeading">Base Exp</td>
-              <td className="row-value" style={{ color: props.bg_color }}></td>
+              <td className="row-value" style={{ color: bg_color }}>
+                {baseExp}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -36,11 +47,12 @@ const PokemonInfo = (props) => {
           <tr>
             <td className="row-heading pokiInfoHeading">Egg Group</td>
             <td className="row-value">
-              {props.PokiInfo.egg_groups.map((item) => {
+              {PokiInfo.egg_groups.map((item) => {
                 return (
                   <span
+                    key={item.name}
                     style={{
-                      color: props.bg_color,
+                      color: bg_color,
                       fontSize: `15px`,
                       padding: 0,
                       textTransform: "capitalize",
@@ -54,26 +66,26 @@ const PokemonInfo = (props) => {
           </tr>
           <tr>
             <td className="row-heading pokiInfoHeading">Egg Cycle</td>
-            <td className="row-value" style={{ color: props.bg_color }}>
-              {props.PokiInfo.hatch_counter}
+            <td className="row-value" style={{ color: bg_color }}>
+              {PokiInfo.hatch_counter}
             </td>
           </tr>
           <tr>
             <td className="row-heading pokiInfoHeading">Growth rate</td>
-            <td className="row-value" style={{ color: props.bg_color }}>
-              {props.PokiInfo.growth_rate.name}
+            <td className="row-value" style={{ color: bg_color }}>
+              {PokiInfo.growth_rate.name}
             </td>
           </tr>
           <tr>
             <td className="row-heading pokiInfoHeading">Habitat</td>
-            <td className="row-value" style={{ color: props.bg_color }}>
-              {props.PokiInfo.habitat && props.PokiInfo.habitat.name}
+            <td className="row-value" style={{ color: bg_color }}>
+              {PokiInfo.habitat && PokiInfo.habitat.name}
             </td>
           </tr>
           <tr>
             <td className="row-heading pokiInfoHeading">Generation</td>
-            <td className="row-value" style={{ color: props.bg_color }}>
-              {props.PokiInfo.generation.name}
+            <td className="row-value" style={{ color: bg_color }}>
+              {PokiInfo.generation.name}
             </td>
           </tr>
         </table>
@@ -84,11 +96,12 @@ const PokemonInfo = (props) => {
           <tr>
             <td className="row-heading pokiInfoHeading">Forms</td>
             <td className="row-value">
-              {props.PokiInfo.varieties.map((vari) => {
+              {PokiInfo.varieties.map((vari) => {
                 return (
                   <span
+                    key={vari.pokemon.name}
                     style={{
-                      color: props.bg_color,
+                      color: bg_color,
                       fontSize: `15px`,
                       padding: 0,
                       textTransform: "capitalize",
@@ -102,20 +115,20 @@ const PokemonInfo = (props) => {
           </tr>
           <tr>
             <td className="row-heading pokiInfoHeading">Legendary</td>
-            <td className="row-value" style={{ color: props.bg_color }}>
-              {props.PokiInfo.is_legendary.toString()}
+            <td className="row-value" style={{ color: bg_color }}>
+              {PokiInfo.is_legendary.toString()}
             </td>
           </tr>
           <tr>
             <td className="row-heading pokiInfoHeading">Mythical</td>
-            <td className="row-value" style={{ color: props.bg_color }}>
-              {props.PokiInfo.is_mythical.toString()}
+            <td className="row-value" style={{ color: bg_color }}>
+              {PokiInfo.is_mythical.toString()}
             </td>
           </tr>
           <tr>
             <td className="row-heading pokiInfoHeading">Alt Forms</td>
-            <td className="row-value" style={{ color: props.bg_color }}>
-              {props.PokiInfo["forms_switchable"].toString()}
+            <td className="row-value" style={{ color: bg_color }}>
+              {PokiInfo["forms_switchable"].toString()}
             </td>
           </tr>
         </table>

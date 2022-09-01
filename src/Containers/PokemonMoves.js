@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import Accordion from "react-bootstrap/Accordion";
 
 export const PokemonMoves = (props) => {
-  console.log(props.moves);
+  const [isHovering, setIsHovering] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
   return (
-    <div className="moves">
-      <h2 style={{ paddingLeft: "15px" }}>MOVES:</h2>
-      {props.moves.map((move, i) => {
-        return (
-          <Accordion key={i}>
-            <Accordion.Header>{move.move.name}</Accordion.Header>
-            <Accordion.Body>Lorem epsom</Accordion.Body>
-          </Accordion>
-        );
-      })}
+    <div
+      className="move-block"
+      style={{
+        backgroundColor: isHovering ? props.bg_color : "rgba(0, 0, 0, 0.1)",
+        color: isHovering ? "white" : "black",
+      }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {props.move.move.name.replace("-", " ")}
     </div>
   );
 };

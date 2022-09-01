@@ -11,7 +11,7 @@ function getPokemonInfo(arr) {
 export const getPokemonList = (page) => async (dispatch) => {
   try {
     dispatch({ type: "POKEMON_LIST_LOADING" });
-    const perPage = 20;
+    const perPage = 18;
     const offset = page * perPage - perPage;
 
     const res = await axios.get(
@@ -34,6 +34,7 @@ export const getPokemonList = (page) => async (dispatch) => {
 
 export const getSearchedPokemon = (data) => async (dispatch) => {
   try {
+    dispatch({ type: "POKEMON_LIST_LOADING" });
     const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${data}`);
     dispatch({ type: "POKEMON_SEARCHING", payload: [res.data] });
   } catch (e) {

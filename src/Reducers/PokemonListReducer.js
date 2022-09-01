@@ -2,6 +2,7 @@ const DefaultState = {
   loading: false,
   data: [],
   errorMsg: "",
+  serachResults: false,
 };
 const PokemonListReducer = (state = DefaultState, action) => {
   switch (action.type) {
@@ -9,12 +10,10 @@ const PokemonListReducer = (state = DefaultState, action) => {
       return {
         ...state,
         loading: true,
-        errorMsg: "",
       };
     case "POKEMON_LIST_FAIL":
       return {
         ...state,
-        data: [],
         loading: false,
         errorMsg: action.msg,
       };
@@ -24,7 +23,7 @@ const PokemonListReducer = (state = DefaultState, action) => {
         loading: false,
         data: action.payload,
         perPage: action.currPage,
-        errorMsg: "",
+        serachResults: false,
       };
     case "POKEMON_SEARCHING":
       return {
@@ -32,6 +31,7 @@ const PokemonListReducer = (state = DefaultState, action) => {
         loading: false,
         data: action.payload,
         errorMsg: "",
+        serachResults: true,
       };
     default:
       return state;

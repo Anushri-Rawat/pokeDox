@@ -1,5 +1,4 @@
 import React from "react";
-import pokeColor from "./PokemonCardColor";
 import PokemonUtil from "../PokemonUtil/PokemonUtil";
 
 const PokemonCard = (props) => {

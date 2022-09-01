@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getPokemonList, getSearchedPokemon } from "../Actions/PokemonAction";
@@ -6,42 +6,43 @@ import { getPokemonList, getSearchedPokemon } from "../Actions/PokemonAction";
 const SearchBar = (props) => {
   const dispatch = useDispatch();
   const PokemonList = useSelector((state) => state.PokemonList);
-  const debounce = (func) => {
-    let timer;
-    return function (...args) {
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(() => {
-        func(...args);
-      }, 800);
-    };
-  };
+  const searchInputRef = useRef();
 
-  const serachInputHandler = async (e) => {
-    if (e.target.value.trim().length > 0) {
-      dispatch(getSearchedPokemon(e.target.value));
-    } else {
-      dispatch(getPokemonList(PokemonList.perPage));
-    }
-  };
+  function searchHandler(e) {
+    e.preventDefault();
+    const query = searchInputRef.current.value.toLowerCase();
+    console.log(query);
+    if (query.trim() !== "") dispatch(getSearchedPokemon(query));
+  }
 
-  const optimisedFn = debounce(serachInputHandler);
+  function clearInputHandler(e) {
+    searchInputRef.current.value = "";
+    dispatch(getPokemonList(PokemonList.perPage));
+  }
 
   return (
-    <div className={`search-bar ${props.class ? props.class : ""}`}>
+    <form
+      onSubmit={searchHandler}
+      className={`search-bar ${props.class ? props.class : ""}`}
+    >
       <input
-        type="text"
+        type="search"
+        ref={searchInputRef}
         className="search-input-box"
-        placeholder="search the pokemon here..."
-        onChange={optimisedFn}
+        placeholder="Search the pokemon here..."
       ></input>
-      <i
-        className="bi bi-search"
-        style={{
-          position: "absolute",
-          right: "15px",
-        }}
-      ></i>
-    </div>
+      <div className="search-buttons">
+        <span style={{ fontSize: "20px" }} onClick={clearInputHandler}>
+          x
+        </span>
+        <span>
+          <i
+            className="bi bi-search"
+            style={{ fontSize: "14px", marginTop: "5px" }}
+          ></i>
+        </span>
+      </div>
+    </form>
   );
 };
 
