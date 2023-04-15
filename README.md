@@ -72,5 +72,5 @@ The following tools were used in the construction of the project:
 
 <h2 id="author">Author </h2>
 
-<sub><b>Kelwy Oliveira</b></sub></a> <a href="https://www.linkedin.com/in/anushri-rawat-a45195205/" title="Anushri's Linkedin">🚀</a>
+<sub><b>Anushri Rawat</b></sub></a> <a href="https://www.linkedin.com/in/anushri-rawat-a45195205/" title="Anushri's Linkedin"></a>
 <br />
