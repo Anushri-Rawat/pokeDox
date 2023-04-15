@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="logo"  src="src/assets/logo.png">
+  <img alt="logo"  src="src/Assests/logo.png">
 </div>
 
 <h3 align="center">
@@ -29,9 +29,9 @@ using [PokéAPI](https://pokeapi.co/) - **The RESTful Pokémon API**.
 
 The PokeDox preview:
 
-![Screen home](/src/Assets/Screen01.png)
-![Screen details](/src/Assets/Screen02.png)
-![Screen details](/src/Assets/Screen03.png)
+![Screen home](/src/Assests/Screen01.png)
+![Screen details](/src/Assests/Screen02.png)
+![Screen details](/src/Assessts/Screen03.png)
 
 ---
 
