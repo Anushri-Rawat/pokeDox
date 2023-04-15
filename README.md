@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="logo"  src="src/Assests/logo.png">
+  <img alt="logo"  src="src/Assests/pokemon-logo-png-0.png">
 </div>
 
 <h3 align="center">
@@ -31,7 +31,7 @@ The PokeDox preview:
 
 ![Screen home](/src/Assests/Screen01.png)
 ![Screen details](/src/Assests/Screen02.png)
-![Screen details](/src/Assessts/Screen03.png)
+![Screen details](/src/Assests/Screen03.png)
 
 ---
 
@@ -62,10 +62,10 @@ http://localhost:3000
 
 The following tools were used in the construction of the project:
 
-- ## ReactJs
-- ## Javascript
-- ## Redux
-- ## Axios
+- **[ReactJs]**
+- **[Javascript]**
+- **[Redux]**
+- **[Axios]**
 - **[PokéAPI](https://pokeapi.co/)**
 
 ---
