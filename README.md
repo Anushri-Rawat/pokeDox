@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="logo"  src="src/Assests/pokemon-logo-png-0.png" width="100px" height="40px">
+  <img alt="logo"  src="src/Assests/pokemon-logo-png-0.png" width="140px" height="80px">
 </div>
 
 <h3 align="center">
